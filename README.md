@@ -1,73 +1,136 @@
-# React + TypeScript + Vite
+# CRI Artes — Frontend MVVM
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto React + TypeScript organizado em arquitetura **MVVM** (Model · ViewModel · View).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Estrutura de pastas
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+cri-artes/
+│
+├── models/                      ← M — Entidades de domínio e dados
+│   ├── Product.ts               Tipos: Product, ProductCategory, TagVariant
+│   ├── Testimonial.ts           Tipo: Testimonial
+│   ├── FaqItem.ts               Tipo: FaqItem
+│   ├── Budget.ts                Tipos: BudgetForm, BudgetResult
+│   └── seedData.ts              Dados estáticos (produtos, depoimentos, FAQ…)
+│
+├── utils/                       ← Funções puras (sem React)
+│   ├── whatsapp.ts              waLink(), scrollToId()
+│   └── budgetCalculator.ts      calcBudget(), buildBudgetWaMessage()
+│
+├── hooks/                       ← Hooks de infra reutilizáveis
+│   ├── useLocalSet.ts           Leitura/escrita de arrays no localStorage
+│   ├── useScrollReveal.ts       IntersectionObserver → classe .is-visible
+│   ├── useToast.ts              Estado e timer do toast global
+│   └── useSlider.ts             Índice + autoplay do carrossel
+│
+├── viewmodels/                  ← VM — Estado e lógica de cada seção
+│   ├── useNavViewModel.ts       Links de navegação + ação de scroll
+│   ├── useProductsViewModel.ts  Filtro ativo + lista filtrada de produtos
+│   ├── useBudgetViewModel.ts    Estado do formulário + cálculo em tempo real
+│   ├── useFavoritesViewModel.ts Favoritos persistidos no localStorage
+│   ├── useBagViewModel.ts       Sacola persistida no localStorage
+│   ├── useNewsletterViewModel.ts Estado do formulário de newsletter
+│   ├── useFaqViewModel.ts       Controle do accordion (índice aberto)
+│   └── useTestimonialsViewModel.ts Slide ativo + autoplay
+│
+├── views/
+│   ├── components/              ← V — Componentes reutilizáveis (burros)
+│   │   ├── ImageSlot.tsx        Placeholder colorido para imagens
+│   │   ├── Toast.tsx            Notificação flutuante
+│   │   ├── AnnouncerBar.tsx     Faixa de anúncio
+│   │   ├── TopNav.tsx           Navegação principal
+│   │   ├── WhatsAppFloat.tsx    Botão flutuante do WhatsApp
+│   │   ├── ProductCard.tsx      Card de produto (recebe props, não acessa VM)
+│   │   ├── TestimonialCard.tsx  Card de depoimento
+│   │   └── FaqItem.tsx          Item do accordion de FAQ
+│   │
+│   └── sections/                ← V — Seções de página (consomem VMs)
+│       ├── HeroSection.tsx
+│       ├── TrustStrip.tsx
+│       ├── CategoriesSection.tsx
+│       ├── ProductsSection.tsx
+│       ├── CustomSection.tsx
+│       ├── BudgetSection.tsx
+│       ├── TestimonialsSection.tsx
+│       ├── IgSection.tsx
+│       ├── FaqSection.tsx
+│       └── Footer.tsx
+│
+├── styles/
+│   └── global.css               Tokens CSS, reset, todas as classes BEM
+│
+└── App.tsx                      Raiz: orquestra estado global + layout
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Fluxo de dados (MVVM)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+Model (dados/tipos)
+  └─▶ ViewModel (hook — estado + lógica)
+         └─▶ View (componente — renderiza + dispara eventos)
+                └─▶ ViewModel (callback → atualiza estado)
+                       └─▶ View re-renderiza
+```
+
+### Responsabilidades por camada
+
+| Camada              | Faz                                               | Não faz                                  |
+| ------------------- | ------------------------------------------------- | ---------------------------------------- |
+| **Model**           | Define tipos TypeScript, guarda seed data         | Nenhuma lógica de UI                     |
+| **Utils**           | Funções puras testáveis (cálculos, links)         | Nenhum estado React                      |
+| **Hooks**           | Comportamentos genéricos reutilizáveis            | Nenhum conhecimento de domínio           |
+| **ViewModel**       | Estado local, derivações, side-effects, callbacks | Nenhum JSX                               |
+| **View/components** | Renderiza props puras                             | Acessa diretamente o localStorage ou DOM |
+| **View/sections**   | Consome o ViewModel correto + compõe components   | Duplica lógica de negócio                |
+| **App.tsx**         | Estado global (bag, favs, toast) + layout         | Lógica de domínio inline                 |
+
+---
+
+## Instalação
+
+```bash
+# Vite + React + TypeScript
+npm create vite@latest cri-artes -- --template react-ts
+cd cri-artes
+
+# Copie a pasta cri-artes/ para src/
+cp -r cri-artes/* src/
+
+# Ajuste src/main.tsx
+# import App from './App'
+npm run dev
+```
+
+---
+
+## Substituindo os placeholders de imagem
+
+`ImageSlot` é o único componente que precisa ser trocado quando os assets chegarem:
+
+```tsx
+// views/components/ImageSlot.tsx  — versão final
+export const ImageSlot: FC<Props> = ({ placeholder, className }) => (
+  <img
+    src={`/images/${placeholder.toLowerCase().replace(/ /g, '-')}.webp`}
+    alt={placeholder}
+    className={className}
+    loading="lazy"
+  />
+);
+```
+
+---
+
+## Convenções de nomenclatura CSS (BEM)
+
+```
+.prod-card            ← bloco
+.prod-card__pic       ← elemento
+.prod-card__tag       ← elemento
+.prod-card__tag--yellow ← modificador
 ```
