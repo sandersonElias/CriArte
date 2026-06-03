@@ -17,6 +17,7 @@ const EMPTY: Omit<FSFaqItem, 'id' | 'createdAt' | 'updatedAt'> = {
 export function useAdminFaq() {
   const [items, setItems] = useState<FSFaqItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<FSFaqItem | null>(null);
   const [form, setForm] = useState({ ...EMPTY });
   const [busy, setBusy] = useState(false);
@@ -38,22 +39,34 @@ export function useAdminFaq() {
     setEditing(null);
     setForm({ ...EMPTY, order: items.length });
     setError(null);
+    setModalOpen(true);
   }, [items.length]);
+
   const openEdit = useCallback((f: FSFaqItem) => {
     setEditing(f);
     const { id, createdAt, updatedAt, ...rest } = f;
+    void id;
+    void createdAt;
+    void updatedAt;
     setForm(rest as typeof EMPTY);
     setError(null);
+    setModalOpen(true);
   }, []);
+
   const closeForm = useCallback(() => {
+    setModalOpen(false);
     setEditing(null);
     setError(null);
   }, []);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { name, value } = e.target;
-      setForm((prev) => ({ ...prev, [name]: value }));
+      const { name, value, type } = e.target;
+      setForm((prev) => ({
+        ...prev,
+        [name]:
+          type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+      }));
     },
     [],
   );
@@ -95,6 +108,7 @@ export function useAdminFaq() {
   return {
     items,
     loading,
+    modalOpen,
     editing,
     form,
     busy,

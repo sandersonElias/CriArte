@@ -24,12 +24,13 @@ const EMPTY: Omit<FSProduct, 'id' | 'createdAt' | 'updatedAt'> = {
 export function useAdminProducts() {
   const [products, setProducts] = useState<FSProduct[]>([]);
   const [loading, setLoading] = useState(true);
+  // modalOpen = controle limpo: true = modal visível, false = modal oculto
+  const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<FSProduct | null>(null);
   const [form, setForm] = useState({ ...EMPTY });
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Escuta em tempo real
   useEffect(() => {
     const unsub = subscribeCollection<FSProduct>(
       'products',
@@ -46,17 +47,22 @@ export function useAdminProducts() {
     setEditing(null);
     setForm({ ...EMPTY, order: products.length });
     setError(null);
+    setModalOpen(true);
   }, [products.length]);
 
   const openEdit = useCallback((p: FSProduct) => {
     setEditing(p);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, createdAt, updatedAt, ...rest } = p;
+    void id;
+    void createdAt;
+    void updatedAt;
     setForm(rest as typeof EMPTY);
     setError(null);
+    setModalOpen(true);
   }, []);
 
   const closeForm = useCallback(() => {
+    setModalOpen(false);
     setEditing(null);
     setError(null);
   }, []);
@@ -118,6 +124,7 @@ export function useAdminProducts() {
   return {
     products,
     loading,
+    modalOpen,
     editing,
     form,
     busy,

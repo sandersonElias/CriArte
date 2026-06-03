@@ -20,6 +20,7 @@ const EMPTY: Omit<FSTestimonial, 'id' | 'createdAt' | 'updatedAt'> = {
 export function useAdminTestimonials() {
   const [items, setItems] = useState<FSTestimonial[]>([]);
   const [loading, setLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<FSTestimonial | null>(null);
   const [form, setForm] = useState({ ...EMPTY });
   const [busy, setBusy] = useState(false);
@@ -41,16 +42,22 @@ export function useAdminTestimonials() {
     setEditing(null);
     setForm({ ...EMPTY, order: items.length });
     setError(null);
+    setModalOpen(true);
   }, [items.length]);
 
   const openEdit = useCallback((t: FSTestimonial) => {
     setEditing(t);
     const { id, createdAt, updatedAt, ...rest } = t;
+    void id;
+    void createdAt;
+    void updatedAt;
     setForm(rest as typeof EMPTY);
     setError(null);
+    setModalOpen(true);
   }, []);
 
   const closeForm = useCallback(() => {
+    setModalOpen(false);
     setEditing(null);
     setError(null);
   }, []);
@@ -114,6 +121,7 @@ export function useAdminTestimonials() {
   return {
     items,
     loading,
+    modalOpen,
     editing,
     form,
     busy,

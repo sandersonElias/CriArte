@@ -17,6 +17,14 @@ export const TestimonialsTab: FC = () => {
 
       {vm.loading ? (
         <div className="adm-loading">Carregando…</div>
+      ) : vm.items.length === 0 ? (
+        <div className="adm-empty">
+          <i className="ti ti-quote" aria-hidden="true" />
+          <p>Nenhum depoimento cadastrado ainda.</p>
+          <button className="adm-btn adm-btn--primary" onClick={vm.openNew}>
+            Cadastrar primeiro depoimento
+          </button>
+        </div>
       ) : (
         <div className="adm-cards">
           {vm.items.map((t) => (
@@ -60,8 +68,8 @@ export const TestimonialsTab: FC = () => {
         </div>
       )}
 
-      {/* Modal */}
-      {vm.editing !== undefined && (
+      {/* Modal — só renderiza quando modalOpen = true */}
+      {vm.modalOpen && (
         <div
           className="adm-modal-bg"
           onClick={(e) => e.target === e.currentTarget && vm.closeForm()}
@@ -70,6 +78,7 @@ export const TestimonialsTab: FC = () => {
             <div className="adm-modal__head">
               <h3>{vm.editing ? 'Editar depoimento' : 'Novo depoimento'}</h3>
               <button
+                type="button"
                 className="adm-modal__close"
                 onClick={vm.closeForm}
                 aria-label="Fechar"

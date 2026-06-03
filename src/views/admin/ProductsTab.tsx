@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 import { useAdminProducts } from '../../viewmodels/useAdminProducts';
-import type { FSProduct } from '../../models/FirestoreModels';
 
 const CAT_OPTIONS = [
   { value: 'mobiliario', label: 'Mobiliário' },
@@ -25,6 +24,14 @@ export const ProductsTab: FC = () => {
 
       {vm.loading ? (
         <div className="adm-loading">Carregando…</div>
+      ) : vm.products.length === 0 ? (
+        <div className="adm-empty">
+          <i className="ti ti-package" aria-hidden="true" />
+          <p>Nenhum produto cadastrado ainda.</p>
+          <button className="adm-btn adm-btn--primary" onClick={vm.openNew}>
+            Cadastrar primeiro produto
+          </button>
+        </div>
       ) : (
         <div className="adm-table-wrap">
           <table className="adm-table">
@@ -86,16 +93,13 @@ export const ProductsTab: FC = () => {
         </div>
       )}
 
-      {/* Modal de edição */}
-      {(vm.editing !== null || vm.form.name !== undefined) &&
-        vm.editing !== undefined && (
-          <ProductModal vm={vm} catOptions={CAT_OPTIONS} />
-        )}
+      {/* Modal — renderiza APENAS quando modalOpen = true */}
+      {vm.modalOpen && <ProductModal vm={vm} catOptions={CAT_OPTIONS} />}
     </div>
   );
 };
 
-// ─── Modal ───────────────────────────────────────────────────────────────────
+// ─── Modal ────────────────────────────────────────────────────────────────────
 interface ModalProps {
   vm: ReturnType<typeof useAdminProducts>;
   catOptions: { value: string; label: string }[];
@@ -110,6 +114,7 @@ const ProductModal: FC<ModalProps> = ({ vm, catOptions }) => (
       <div className="adm-modal__head">
         <h3>{vm.editing ? 'Editar produto' : 'Novo produto'}</h3>
         <button
+          type="button"
           className="adm-modal__close"
           onClick={vm.closeForm}
           aria-label="Fechar"
