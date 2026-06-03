@@ -1,27 +1,42 @@
-# Logs
-logs
+# ─── Dependências ────────────────────────────────────────────────────────────
+node_modules/
+
+# ─── Build ───────────────────────────────────────────────────────────────────
+dist/
+dist-ssr/
+build/
+
+# ─── Variáveis de ambiente — NUNCA comitar ────────────────────────────────────
+.env
+.env.local
+.env.*.local
+# .env.example NÃO está aqui — ele pode (e deve) ir para o git
+
+# ─── Logs ────────────────────────────────────────────────────────────────────
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
+# ─── Editor ──────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+.DS_Store
+Thumbs.db
 
-.prettierrc
+# ─── Vite ────────────────────────────────────────────────────────────────────
+vite.config.ts.timestamp*
+
+# ─── Firebase ────────────────────────────────────────────────────────────────
+.firebase/
+firebase-debug.log
+firestore-debug.log
+
+#Escopo do projeto 
 estrutura
