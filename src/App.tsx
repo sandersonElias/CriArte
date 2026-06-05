@@ -1,11 +1,3 @@
-/**
- * App.tsx — Ponto de entrada da aplicação
- *
- * Roteamento simples sem react-router:
- *   /admin  → painel administrativo (requer login)
- *   /       → site público CRI Artes
- */
-
 import { useEffect } from 'react';
 import { AuthProvider } from './contexts/AuthContext';
 import { useAuth } from './contexts/AuthContext';

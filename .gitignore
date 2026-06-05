@@ -38,5 +38,7 @@ vite.config.ts.timestamp*
 firebase-debug.log
 firestore-debug.log
 
-#Escopo do projeto 
+# Chave privada do Firebase Admin SDK (NUNCA comitar)
+serviceAccountKey.json
+
 estrutura
