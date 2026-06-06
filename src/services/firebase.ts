@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -11,17 +12,12 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Avisa em desenvolvimento se alguma variável estiver faltando
 if (import.meta.env.DEV) {
   const missing = Object.entries(firebaseConfig)
     .filter(([, v]) => !v)
     .map(([k]) => k);
   if (missing.length) {
-    console.error(
-      '[Firebase] Variáveis de ambiente faltando:',
-      missing,
-      '\nCrie um arquivo .env na raiz do projeto (veja .env.example).',
-    );
+    console.error('[Firebase] Variáveis faltando:', missing);
   }
 }
 
@@ -29,3 +25,4 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const storage = getStorage(app);

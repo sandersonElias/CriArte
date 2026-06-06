@@ -16,4 +16,5 @@ export interface Product {
   tag?: string;
   tagVariant?: TagVariant;
   placeholder: string;
+  imageUrl?: string; // URL pública do Firebase Storage
 }

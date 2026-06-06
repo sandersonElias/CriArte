@@ -17,6 +17,7 @@ const EMPTY: Omit<FSProduct, 'id' | 'createdAt' | 'updatedAt'> = {
   tag: '',
   tagVariant: 'yellow',
   imageUrl: '',
+  imagePublicId: '',
   active: true,
   order: 0,
 };
@@ -24,7 +25,6 @@ const EMPTY: Omit<FSProduct, 'id' | 'createdAt' | 'updatedAt'> = {
 export function useAdminProducts() {
   const [products, setProducts] = useState<FSProduct[]>([]);
   const [loading, setLoading] = useState(true);
-  // modalOpen = controle limpo: true = modal visível, false = modal oculto
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<FSProduct | null>(null);
   const [form, setForm] = useState({ ...EMPTY });
@@ -56,7 +56,7 @@ export function useAdminProducts() {
     void id;
     void createdAt;
     void updatedAt;
-    setForm(rest as typeof EMPTY);
+    setForm({ ...EMPTY, ...rest });
     setError(null);
     setModalOpen(true);
   }, []);
@@ -86,6 +86,11 @@ export function useAdminProducts() {
     },
     [],
   );
+
+  // Callback específico para o ImageUploader — salva url E publicId juntos
+  const handleImageUpload = useCallback((url: string, publicId: string) => {
+    setForm((prev) => ({ ...prev, imageUrl: url, imagePublicId: publicId }));
+  }, []);
 
   const handleSave = useCallback(
     async (e: React.FormEvent) => {
@@ -133,6 +138,7 @@ export function useAdminProducts() {
     openEdit,
     closeForm,
     handleChange,
+    handleImageUpload,
     handleSave,
     handleDelete,
     handleToggleActive,

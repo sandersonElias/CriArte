@@ -1,10 +1,3 @@
-/**
- * models/FirestoreModels.ts
- *
- * Tipos que espelham exatamente as coleções do Firestore.
- * Os tipos do site (Product, Testimonial…) são derivados destes.
- */
-
 import type { FirestoreRecord } from '../services/firestoreService';
 
 // ─── Produto ─────────────────────────────────────────────────────────────────
@@ -17,7 +10,8 @@ export interface FSProduct extends FirestoreRecord {
   priceNote: string;
   tag?: string;
   tagVariant?: 'green' | 'yellow';
-  imageUrl?: string;
+  imageUrl?: string; // URL pública do Cloudinary
+  imagePublicId?: string; // ID do Cloudinary (para transformações)
   active: boolean;
   order: number;
 }
@@ -50,12 +44,12 @@ export interface FSFaqItem extends FirestoreRecord {
   order: number;
 }
 
-// ─── Settings (documento único "global") ─────────────────────────────────────
+// ─── Settings ────────────────────────────────────────────────────────────────
 export interface FSSettings extends FirestoreRecord {
-  announceText: string; // texto da faixa de anúncio
+  announceText: string;
   announceActive: boolean;
-  waNumber: string; // número do WhatsApp
-  heroChip: string; // texto do chip do hero
+  waNumber: string;
+  heroChip: string;
   heroTitle: string;
   heroLede: string;
   instagramHandle: string;

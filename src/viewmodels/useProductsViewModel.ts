@@ -17,7 +17,8 @@ function toProduct(p: FSProduct): Product {
     priceNote: p.priceNote,
     tag: p.tag,
     tagVariant: p.tagVariant,
-    placeholder: p.imageUrl || p.name,
+    placeholder: p.name,
+    imageUrl: p.imageUrl || undefined, // URL real do Storage
   };
 }
 

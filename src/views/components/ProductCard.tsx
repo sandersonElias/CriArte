@@ -10,19 +10,27 @@ interface Props {
 }
 
 export const ProductCard: FC<Props> = ({ product, isFav, onFav, onBag }) => {
-  const { id, catLabel, name, price, priceNote, tag, tagVariant, placeholder } =
-    product;
+  const {
+    id,
+    catLabel,
+    name,
+    price,
+    priceNote,
+    tag,
+    tagVariant,
+    placeholder,
+    imageUrl,
+  } = product;
 
   return (
     <article className="prod-card">
       <div className="prod-card__pic">
-        <ImageSlot placeholder={placeholder} />
+        {/* Passa imageUrl real se existir, senão mostra placeholder colorido */}
+        <ImageSlot imageUrl={imageUrl} placeholder={placeholder} alt={name} />
 
         {tag && (
           <div
-            className={`prod-card__tag${
-              tagVariant === 'yellow' ? ' prod-card__tag--yellow' : ''
-            }`}
+            className={`prod-card__tag${tagVariant === 'yellow' ? ' prod-card__tag--yellow' : ''}`}
           >
             {tag}
           </div>

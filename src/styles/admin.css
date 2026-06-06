@@ -862,3 +862,123 @@
 .adm-empty p {
   font-size: 14px;
 }
+
+/* ─── Image Uploader ──────────────────────────────────── */
+.img-uploader {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.img-uploader__zone {
+  width: 100%;
+  height: 200px;
+  border: 2px dashed var(--adm-line);
+  border-radius: var(--adm-radius);
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+.img-uploader__zone:hover {
+  border-color: var(--adm-green-l);
+  background: #f0f9f1;
+}
+.img-uploader__zone--has-image {
+  border-style: solid;
+  border-color: var(--adm-line);
+}
+
+.img-uploader__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--adm-mute);
+  text-align: center;
+  padding: 20px;
+}
+.img-uploader__empty .ti {
+  font-size: 36px;
+  opacity: 0.4;
+}
+.img-uploader__empty span {
+  font-size: 14px;
+  font-weight: 500;
+}
+.img-uploader__empty small {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.img-uploader__preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Progress overlay */
+.img-uploader__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.img-uploader__progress-bar {
+  width: 70%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+}
+.img-uploader__progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--adm-yellow);
+  transition: width 0.15s;
+}
+.img-uploader__progress-label {
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+}
+.img-uploader__actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ─── Thumbnail na tabela ─────────────────────────────── */
+.adm-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid var(--adm-line);
+  display: block;
+}
+.adm-thumb--empty {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  border: 1px dashed var(--adm-line);
+  background: #f9fafb;
+  display: grid;
+  place-items: center;
+  color: var(--adm-mute);
+  font-size: 18px;
+}
+
+/* ─── Modal mais largo para o uploader ───────────────── */
+.adm-modal--wide {
+  max-width: 780px;
+}
