@@ -1,8 +1,17 @@
 import type { FC } from 'react';
+import type { FSSettings } from '../../models/FirestoreModels';
 
-export const AnnouncerBar: FC = () => (
-  <div className="announce">
-    Frete monitorado para todo o Brasil · 10× sem juros ·{' '}
-    <strong>Ateliê aberto às quartas</strong>
-  </div>
-);
+interface Props {
+  settings: FSSettings;
+}
+
+export const AnnouncerBar: FC<Props> = ({ settings }) => {
+  if (!settings.announceActive) return null;
+
+  return (
+    <div
+      className="announce"
+      dangerouslySetInnerHTML={{ __html: settings.announceText }}
+    />
+  );
+};

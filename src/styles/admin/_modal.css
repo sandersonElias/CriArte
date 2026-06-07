@@ -1,0 +1,157 @@
+/* ── Backdrop ─────────────────────────────────────────── */
+.adm-modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+/* ── Modal ────────────────────────────────────────────── */
+.adm-modal {
+  background: var(--adm-surface);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--adm-shadow-lg);
+}
+.adm-modal--wide {
+  max-width: 780px;
+}
+
+.adm-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--adm-line);
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
+}
+.adm-modal__head h3 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+.adm-modal__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--adm-mute);
+}
+
+.adm-modal__body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.adm-modal__foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+/* ── Grid de campos ───────────────────────────────────── */
+.adm-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── Campos ───────────────────────────────────────────── */
+.adm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.adm-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--adm-mute);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.adm-field input,
+.adm-field select,
+.adm-field textarea {
+  background: #fff;
+  border: 1px solid var(--adm-line);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font:
+    14px 'DM Sans',
+    sans-serif;
+  color: var(--adm-ink);
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.adm-field input:focus,
+.adm-field select:focus,
+.adm-field textarea:focus {
+  border-color: var(--adm-green-l);
+  box-shadow: 0 0 0 3px rgba(47, 102, 52, 0.12);
+}
+.adm-field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.adm-field--full {
+  grid-column: 1 / -1;
+}
+.adm-field--check label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  text-transform: none;
+  font-size: 13px;
+  color: var(--adm-ink);
+}
+.adm-field--check input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--adm-green-l);
+}
+.adm-field__hint {
+  font-size: 11.5px;
+  color: var(--adm-mute);
+  line-height: 1.4;
+}
+
+/* ── Feedback ─────────────────────────────────────────── */
+.adm-error {
+  background: var(--adm-red-l);
+  color: var(--adm-red);
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+}
+.adm-saved {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--adm-green-l);
+  font-size: 14px;
+  font-weight: 600;
+}
+.adm-saved .ti {
+  font-size: 18px;
+}
+
+@media (max-width: 900px) {
+  .adm-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,25 +1,25 @@
 import type { FC } from 'react';
 import { ImageSlot } from '../components/ImageSlot';
-import { waLink, scrollToId } from '../../utils/whatsapp';
+import { scrollToId } from '../../utils/whatsapp';
+import type { FSSettings } from '../../models/FirestoreModels';
 
-export const HeroSection: FC = () => (
+interface Props {
+  settings: FSSettings;
+}
+
+export const HeroSection: FC<Props> = ({ settings }) => (
   <section className="hero" data-reveal>
     <div className="hero__grid">
-      {/* Left panel */}
+      {/* Painel esquerdo */}
       <div className="hero__left">
         <span className="hero__chip">
           <span className="pulse" aria-hidden="true" />
-          Coleção inverno · disponível agora
+          {settings.heroChip}
         </span>
 
-        <h1 className="hero__title">
-          Peças em <span className="y">madeira</span> que duram gerações.
-        </h1>
+        <h1 className="hero__title">{settings.heroTitle}</h1>
 
-        <p className="hero__lede">
-          Mobiliário, decoração e arte sacra feitos à mão em ateliê próprio.
-          Edições limitadas, sob medida ou prontas para envio.
-        </p>
+        <p className="hero__lede">{settings.heroLede}</p>
 
         <div className="hero__actions">
           <a
@@ -60,10 +60,10 @@ export const HeroSection: FC = () => (
         </div>
       </div>
 
-      {/* Right panel — cards */}
+      {/* Painel direito — 3 cards */}
       <div className="hero__right">
         <div className="hero-card hero-card--featured">
-          <ImageSlot placeholder="Cristaleira Cordilheira" />
+          <ImageSlot placeholder="Destaque principal" />
           <div className="tag">Destaque</div>
           <div className="hero-card__info">
             <div>

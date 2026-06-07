@@ -1,0 +1,18 @@
+:root {
+  --adm-bg: #f4f5f7;
+  --adm-surface: #ffffff;
+  --adm-side-bg: #0f2811;
+  --adm-side-w: 240px;
+  --adm-head-h: 60px;
+  --adm-ink: #1a1f1a;
+  --adm-mute: #6b7280;
+  --adm-line: #e5e7eb;
+  --adm-green: #1c3c20;
+  --adm-green-l: #2f6634;
+  --adm-yellow: #e8c547;
+  --adm-red: #dc2626;
+  --adm-red-l: #fef2f2;
+  --adm-radius: 10px;
+  --adm-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --adm-shadow-lg: 0 10px 30px -10px rgba(0, 0, 0, 0.18);
+}

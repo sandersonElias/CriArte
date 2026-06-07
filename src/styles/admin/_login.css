@@ -1,0 +1,59 @@
+.adm-login {
+  min-height: 100vh;
+  background: var(--adm-side-bg);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.adm-login__card {
+  background: #fff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  padding: 40px 36px;
+  box-shadow: var(--adm-shadow-lg);
+}
+.adm-login__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.adm-login__mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--adm-green);
+  color: var(--adm-yellow);
+  display: grid;
+  place-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+}
+.adm-login__name {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+.adm-login__sub {
+  font-size: 11.5px;
+  color: var(--adm-mute);
+  margin-top: 2px;
+}
+.adm-login__title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+}
+.adm-login__desc {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--adm-mute);
+  margin-bottom: 24px;
+}
+.adm-login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

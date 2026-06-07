@@ -1,8 +1,14 @@
 import type { FC } from 'react';
 import { useNewsletterViewModel } from '../../viewmodels/useNewsletterViewModel';
 import { scrollToId } from '../../utils/whatsapp';
+import type { FSSettings } from '../../models/FirestoreModels';
+
+interface Props {
+  settings: FSSettings;
+}
 
 const CATALOG_LINKS = ['Mobiliário', 'Sagrada', 'Decoração', 'Sazonal'];
+
 const ATELIER_LINKS: [string, string][] = [
   ['custom', 'Sob medida'],
   ['test', 'Avaliações'],
@@ -11,7 +17,7 @@ const ATELIER_LINKS: [string, string][] = [
   ['#', 'Cuidados com a peça'],
 ];
 
-export const Footer: FC = () => {
+export const Footer: FC<Props> = ({ settings }) => {
   const { email, setEmail, subscribed, handleSubmit } =
     useNewsletterViewModel();
 
@@ -19,7 +25,7 @@ export const Footer: FC = () => {
     <footer className="site-footer">
       <div className="wrap">
         <div className="foot-top">
-          {/* Brand col */}
+          {/* Brand + newsletter */}
           <div className="foot-col">
             <div className="big-mark">
               CRI <em>Artes</em>
@@ -27,7 +33,6 @@ export const Footer: FC = () => {
             <p style={{ marginTop: 14, maxWidth: '34ch' }}>
               Marcenaria autoral · Mairiporã, SP · Atendemos todo o Brasil.
             </p>
-
             <form className="news-form" onSubmit={handleSubmit}>
               <input
                 type="email"
@@ -51,7 +56,7 @@ export const Footer: FC = () => {
             </p>
           </div>
 
-          {/* Catalog col */}
+          {/* Catálogo */}
           <div className="foot-col">
             <h5>Catálogo</h5>
             <ul>
@@ -71,7 +76,7 @@ export const Footer: FC = () => {
             </ul>
           </div>
 
-          {/* Atelier col */}
+          {/* Ateliê */}
           <div className="foot-col">
             <h5>Ateliê</h5>
             <ul>
@@ -93,25 +98,28 @@ export const Footer: FC = () => {
             </ul>
           </div>
 
-          {/* Contact col */}
+          {/* Contato — dados do Firestore */}
           <div className="foot-col">
             <h5>Contato</h5>
             <ul>
-              <li>+55 11 9 9999-0000</li>
-              <li>atelie@criartes.cl</li>
-              <li>Seg–Sex · 9h às 18h</li>
+              <li>{settings.contactPhone}</li>
+              <li>{settings.contactEmail}</li>
+              <li>{settings.contactHours}</li>
               <li>
-                <a href="#">Instagram · @criartes_cl</a>
-              </li>
-              <li>
-                <a href="#">Pinterest</a>
+                <a
+                  href={`https://instagram.com/${settings.instagramHandle.replace('@', '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Instagram · {settings.instagramHandle}
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="foot-base">
-          <span>© 2026 CRI Artes · CNPJ 00.000.000/0001-00</span>
+          <span>© {new Date().getFullYear()} CRI Artes</span>
           <span>v03 — Vitrine</span>
         </div>
       </div>

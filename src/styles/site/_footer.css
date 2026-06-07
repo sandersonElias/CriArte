@@ -1,0 +1,138 @@
+/* ── Rodapé ───────────────────────────────────────────── */
+.site-footer {
+  background: var(--green-900);
+  color: var(--cream);
+  padding: 80px 0 32px;
+}
+
+.foot-top {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+  gap: 48px;
+}
+
+.foot-col h5 {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 18px;
+}
+.site-footer p,
+.site-footer li {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #bdb89e;
+}
+.site-footer ul {
+  list-style: none;
+}
+.site-footer a:hover {
+  color: var(--yellow);
+}
+
+.big-mark {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 64px;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+}
+.big-mark em {
+  font-style: italic;
+  color: var(--yellow);
+  font-weight: 500;
+}
+
+/* Newsletter */
+.news-form {
+  margin-top: 18px;
+  display: flex;
+  gap: 8px;
+  max-width: 340px;
+}
+.news-form input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(232, 197, 71, 0.25);
+  border-radius: 999px;
+  padding: 10px 16px;
+  color: var(--cream);
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+}
+.news-form input::placeholder {
+  color: #8a8770;
+}
+.news-form button {
+  padding: 10px 16px;
+  background: var(--yellow);
+  color: var(--green-900);
+  border: 0;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+/* Base do rodapé */
+.foot-base {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(232, 197, 71, 0.15);
+  display: flex;
+  justify-content: space-between;
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a8770;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ── WhatsApp float ───────────────────────────────────── */
+.wa-float {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px 12px 14px;
+  background: var(--green-800);
+  color: var(--bone);
+  border-radius: 999px;
+  box-shadow: 0 18px 40px -18px rgba(15, 40, 17, 0.55);
+  font-weight: 600;
+  font-size: 13.5px;
+  transition:
+    transform 0.15s,
+    background 0.2s;
+}
+.wa-float:hover {
+  transform: translateY(-2px);
+  background: #0e2410;
+}
+.wa-float__ico {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--green-900);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+
+@media (max-width: 980px) {
+  .foot-top {
+    grid-template-columns: 1fr 1fr;
+  }
+}

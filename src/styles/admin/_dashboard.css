@@ -1,0 +1,117 @@
+.adm-dashboard__hello {
+  font-size: 14.5px;
+  color: var(--adm-mute);
+  line-height: 1.6;
+  max-width: 60ch;
+  margin-bottom: 28px;
+}
+
+/* Grade de stat cards */
+.adm-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.adm-stat {
+  background: var(--adm-surface);
+  border-radius: var(--adm-radius);
+  border: 1px solid var(--adm-line);
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--adm-shadow);
+}
+.adm-stat__ico {
+  font-size: 22px;
+}
+.adm-stat__val {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1;
+}
+.adm-stat__lbl {
+  font-size: 13px;
+  color: var(--adm-mute);
+}
+
+/* Cores por variante */
+.adm-stat--teal .adm-stat__ico,
+.adm-stat--teal .adm-stat__val {
+  color: #0f766e;
+}
+.adm-stat--purple .adm-stat__ico,
+.adm-stat--purple .adm-stat__val {
+  color: #7c3aed;
+}
+.adm-stat--coral .adm-stat__ico,
+.adm-stat--coral .adm-stat__val {
+  color: #e11d48;
+}
+.adm-stat--amber .adm-stat__ico,
+.adm-stat--amber .adm-stat__val {
+  color: #d97706;
+}
+
+/* Caixa de informação */
+.adm-info-box {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: var(--adm-radius);
+  padding: 16px 18px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #1e3a8a;
+}
+.adm-info-box .ti {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.adm-info-box strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Empty state */
+.adm-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--adm-mute);
+}
+.adm-empty .ti {
+  font-size: 40px;
+  opacity: 0.3;
+}
+.adm-empty p {
+  font-size: 14px;
+}
+
+/* Loading */
+.adm-loading {
+  padding: 60px;
+  text-align: center;
+  color: var(--adm-mute);
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .adm-stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .adm-stat-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,100 @@
+/* ── Botões ───────────────────────────────────────────── */
+.adm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--adm-radius);
+  font:
+    600 13px 'DM Sans',
+    sans-serif;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+.adm-btn .ti {
+  font-size: 15px;
+}
+
+.adm-btn--primary {
+  background: var(--adm-green);
+  color: #fff;
+}
+.adm-btn--primary:hover {
+  background: #0e2010;
+}
+
+.adm-btn--ghost {
+  background: transparent;
+  color: var(--adm-ink);
+  border: 1px solid var(--adm-line);
+}
+.adm-btn--ghost:hover {
+  background: var(--adm-line);
+}
+
+.adm-btn--danger {
+  background: var(--adm-red-l);
+  color: var(--adm-red);
+  border: 1px solid #fecaca;
+}
+.adm-btn--danger:hover {
+  background: #fee2e2;
+}
+
+.adm-btn--sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+.adm-btn--full {
+  width: 100%;
+  justify-content: center;
+}
+.adm-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ── Toggle switch ────────────────────────────────────── */
+.adm-toggle {
+  width: 36px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--adm-line);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.adm-toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+}
+.adm-toggle--on {
+  background: var(--adm-green-l);
+}
+.adm-toggle--on::after {
+  transform: translateX(16px);
+}
+
+/* ── Toolbar (linha acima das tabelas/listas) ─────────── */
+.adm-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.adm-toolbar__count {
+  font-size: 13px;
+  color: var(--adm-mute);
+  font-family: 'DM Mono', monospace;
+}
