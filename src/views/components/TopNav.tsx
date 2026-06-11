@@ -1,14 +1,11 @@
 import type { FC } from 'react';
 import { useNavViewModel } from '../../viewmodels/useNavViewModel';
+import { useCartContext } from '../../contexts/CartContext';
 
-interface Props {
-  bagCount: number;
-  favCount: number;
-}
-
-export const TopNav: FC<Props> = ({ bagCount, favCount }) => {
+export const TopNav: FC = () => {
   const { handleNavClick, handleLogoClick, orderWaLink, NAV_LINKS } =
     useNavViewModel();
+  const { cart, favorites, openCart, openFavorites } = useCartContext();
 
   return (
     <nav className="top-nav">
@@ -45,23 +42,14 @@ export const TopNav: FC<Props> = ({ bagCount, favCount }) => {
           ))}
         </ul>
 
-        {/* Actions */}
+        {/* Ações */}
         <div className="nav-r">
-          <button className="icon-btn" aria-label="Buscar">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              width={16}
-              height={16}
-            >
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-3-3" />
-            </svg>
-          </button>
-
-          <button className="icon-btn" aria-label="Favoritos">
+          {/* Favoritos */}
+          <button
+            className="icon-btn"
+            aria-label={`Favoritos (${favorites.favCount})`}
+            onClick={openFavorites}
+          >
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -72,10 +60,17 @@ export const TopNav: FC<Props> = ({ bagCount, favCount }) => {
             >
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
-            {favCount > 0 && <span className="badge">{favCount}</span>}
+            {favorites.favCount > 0 && (
+              <span className="badge">{favorites.favCount}</span>
+            )}
           </button>
 
-          <button className="icon-btn" aria-label="Sacola">
+          {/* Carrinho */}
+          <button
+            className="icon-btn"
+            aria-label={`Carrinho (${cart.totalItems})`}
+            onClick={openCart}
+          >
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -88,7 +83,9 @@ export const TopNav: FC<Props> = ({ bagCount, favCount }) => {
               <path d="M3 6h18" />
               <path d="M16 10a4 4 0 0 1-8 0" />
             </svg>
-            {bagCount > 0 && <span className="badge">{bagCount}</span>}
+            {cart.totalItems > 0 && (
+              <span className="badge">{cart.totalItems}</span>
+            )}
           </button>
 
           <a

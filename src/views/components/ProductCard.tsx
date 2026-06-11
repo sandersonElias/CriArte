@@ -5,13 +5,19 @@ import { ImageSlot } from './ImageSlot';
 interface Props {
   product: Product;
   isFav: boolean;
-  onFav: (id: string) => void;
-  onBag: (id: string) => void;
+  inCart: boolean;
+  onFav: () => void;
+  onBag: () => void;
 }
 
-export const ProductCard: FC<Props> = ({ product, isFav, onFav, onBag }) => {
+export const ProductCard: FC<Props> = ({
+  product,
+  isFav,
+  inCart,
+  onFav,
+  onBag,
+}) => {
   const {
-    id,
     catLabel,
     name,
     price,
@@ -25,7 +31,6 @@ export const ProductCard: FC<Props> = ({ product, isFav, onFav, onBag }) => {
   return (
     <article className="prod-card">
       <div className="prod-card__pic">
-        {/* Passa imageUrl real se existir, senão mostra placeholder colorido */}
         <ImageSlot imageUrl={imageUrl} placeholder={placeholder} alt={name} />
 
         {tag && (
@@ -36,10 +41,11 @@ export const ProductCard: FC<Props> = ({ product, isFav, onFav, onBag }) => {
           </div>
         )}
 
+        {/* Favorito */}
         <button
           className={`prod-card__heart${isFav ? ' prod-card__heart--active' : ''}`}
           aria-label={`${isFav ? 'Remover dos' : 'Adicionar aos'} favoritos: ${name}`}
-          onClick={() => onFav(id)}
+          onClick={onFav}
         >
           {isFav ? '♥' : '♡'}
         </button>
@@ -53,12 +59,22 @@ export const ProductCard: FC<Props> = ({ product, isFav, onFav, onBag }) => {
             {price}
             <small>{priceNote}</small>
           </div>
+          {/* Adicionar ao carrinho */}
           <button
-            className="prod-card__add"
-            aria-label={`Adicionar ${name} à sacola`}
-            onClick={() => onBag(id)}
+            className={`prod-card__add${inCart ? ' prod-card__add--in-cart' : ''}`}
+            aria-label={
+              inCart
+                ? `${name} já está no carrinho`
+                : `Adicionar ${name} ao carrinho`
+            }
+            onClick={onBag}
+            title={
+              inCart
+                ? 'Já no carrinho — clique para adicionar mais'
+                : 'Adicionar ao carrinho'
+            }
           >
-            +
+            {inCart ? '✓' : '+'}
           </button>
         </div>
       </div>

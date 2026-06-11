@@ -1,19 +1,13 @@
 import type { FC } from 'react';
 import { ProductCard } from '../components/ProductCard';
-import {
-  useProductsViewModel,
-  type FilterKey,
-} from '../../viewmodels/useProductsViewModel';
+import { useProductsViewModel } from '../../viewmodels/useProductsViewModel';
+import { useCartContext } from '../../contexts/CartContext';
+import type { FilterKey } from '../../viewmodels/useProductsViewModel';
 
-interface Props {
-  favs: string[];
-  onFav: (id: string) => void;
-  onBag: (id: string) => void;
-}
-
-export const ProductsSection: FC<Props> = ({ favs, onFav, onBag }) => {
-  const { activeFilter, visibleProducts, selectFilter, FILTERS } =
+export const ProductsSection: FC = () => {
+  const { activeFilter, visibleProducts, selectFilter, FILTERS, loading } =
     useProductsViewModel();
+  const { cart, favorites, handleAddToCart } = useCartContext();
 
   return (
     <section className="products-section" id="prods" data-reveal>
@@ -25,11 +19,11 @@ export const ProductsSection: FC<Props> = ({ favs, onFav, onBag }) => {
           </h2>
         </div>
         <a className="sec-head__link" href="#">
-          Ver todas as 152 peças →
+          Ver todas as peças →
         </a>
       </div>
 
-      {/* Filter chips */}
+      {/* Filtros */}
       <div
         className="filters"
         role="tablist"
@@ -51,30 +45,37 @@ export const ProductsSection: FC<Props> = ({ favs, onFav, onBag }) => {
             <span className="chip__count">{count}</span>
           </div>
         ))}
-
         <div className="filters__right">
           Ordenar por
           <select aria-label="Ordenação">
             <option>Mais recentes</option>
             <option>Menor preço</option>
             <option>Maior preço</option>
-            <option>Mais pedidos</option>
           </select>
         </div>
       </div>
 
       {/* Grid */}
-      <div className="prods-grid">
-        {visibleProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            isFav={favs.includes(product.id)}
-            onFav={onFav}
-            onBag={onBag}
-          />
-        ))}
-      </div>
+      {loading ? (
+        <div className="prods-grid">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="prod-card prod-card--skeleton" />
+          ))}
+        </div>
+      ) : (
+        <div className="prods-grid">
+          {visibleProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              isFav={favorites.isFav(product.id)}
+              inCart={cart.hasItem(product.id)}
+              onFav={() => favorites.toggleFav(product)}
+              onBag={() => handleAddToCart(product)}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 };

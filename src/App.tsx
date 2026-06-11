@@ -1,25 +1,24 @@
 import { useEffect } from 'react';
 import { AuthProvider } from './contexts/AuthContext';
 import { useAuth } from './contexts/AuthContext';
+
 import { useSettingsViewModel } from './viewmodels/useSettingsViewModel';
 
-// ─── Estilos (fragmentados) ───────────────────────────────────────────────────
+// ─── Estilos ──────────────────────────────────────────────────────────────────
 import './styles/site/index.css';
 import './styles/admin/index.css';
 
-// ─── Hooks de infra (site público) ───────────────────────────────────────────
+// ─── Hooks de infra ───────────────────────────────────────────────────────────
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { useToast } from './hooks/useToast';
-
-// ─── ViewModels de estado global (site público) ───────────────────────────────
-import { useFavoritesViewModel } from './viewmodels/useFavoritesViewModel';
-import { useBagViewModel } from './viewmodels/useBagViewModel';
 
 // ─── Componentes do site público ─────────────────────────────────────────────
 import { AnnouncerBar } from './views/components/AnnouncerBar';
 import { TopNav } from './views/components/TopNav';
 import { Toast } from './views/components/Toast';
 import { WhatsAppFloat } from './views/components/WhatsAppFloat';
+import { CartDrawer } from './views/components/CartDrawer';
+import { FavoritesDrawer } from './views/components/FavoritesDrawer';
 import { HeroSection } from './views/sections/HeroSection';
 import { TrustStrip } from './views/sections/TrustStrip';
 import { CategoriesSection } from './views/sections/CategoriesSection';
@@ -30,12 +29,13 @@ import { TestimonialsSection } from './views/sections/TestimonialsSection';
 import { IgSection } from './views/sections/IgSection';
 import { FaqSection } from './views/sections/FaqSection';
 import { Footer } from './views/sections/Footer';
+import { CartProvider } from './contexts/CartContext';
 
 // ─── Admin ────────────────────────────────────────────────────────────────────
 import { LoginPage } from './views/admin/LoginPage';
 import { AdminPage } from './views/admin/AdminPage';
 
-// ─── Detecta se a rota é /admin ───────────────────────────────────────────────
+// ─── Detecta rota /admin ──────────────────────────────────────────────────────
 const isAdminRoute = () => window.location.pathname.startsWith('/admin');
 
 // ─── Proteção de rota ─────────────────────────────────────────────────────────
@@ -72,28 +72,16 @@ function AdminGuard() {
 function PublicSite() {
   useScrollReveal();
 
-  // Dados dinâmicos do Firestore (announce bar, hero, contato, WhatsApp)
   const { settings } = useSettingsViewModel();
-
   const { toast, show: showToast } = useToast();
-  const { favs, toggleFav, favCount } = useFavoritesViewModel();
-  const { addToBag, bagCount } = useBagViewModel();
-
-  const handleAddToBag = (id: string) => {
-    addToBag(id);
-    showToast('Adicionado à sua seleção');
-  };
 
   return (
     <>
-      {/* Announce bar — texto vem do Firestore */}
       <AnnouncerBar settings={settings} />
-
-      <TopNav bagCount={bagCount} favCount={favCount} />
+      <TopNav />
 
       <main id="top">
         <div className="wrap">
-          {/* Hero — chip, título e lede vêm do Firestore */}
           <HeroSection settings={settings} />
         </div>
 
@@ -101,11 +89,7 @@ function PublicSite() {
 
         <div className="wrap">
           <CategoriesSection />
-          <ProductsSection
-            favs={favs}
-            onFav={toggleFav}
-            onBag={handleAddToBag}
-          />
+          <ProductsSection />
           <CustomSection />
           <BudgetSection />
           <TestimonialsSection />
@@ -114,11 +98,12 @@ function PublicSite() {
         </div>
       </main>
 
-      {/* Rodapé — contato e Instagram vêm do Firestore */}
       <Footer settings={settings} />
-
-      {/* Botão flutuante — número do WhatsApp vem do Firestore */}
       <WhatsAppFloat settings={settings} />
+
+      {/* Drawers — ficam fora do fluxo, sempre montados */}
+      <CartDrawer />
+      <FavoritesDrawer />
 
       <Toast text={toast.text} visible={toast.visible} />
     </>
@@ -127,7 +112,6 @@ function PublicSite() {
 
 // ─── Raiz ─────────────────────────────────────────────────────────────────────
 export default function App() {
-  // Carrega ícones Tabler (usados no painel admin)
   useEffect(() => {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -139,7 +123,14 @@ export default function App() {
 
   return (
     <AuthProvider>
-      {isAdminRoute() ? <AdminGuard /> : <PublicSite />}
+      {isAdminRoute() ? (
+        <AdminGuard />
+      ) : (
+        // CartProvider envolve só o site público
+        <CartProvider>
+          <PublicSite />
+        </CartProvider>
+      )}
     </AuthProvider>
   );
 }
