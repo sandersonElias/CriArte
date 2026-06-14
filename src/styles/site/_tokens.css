@@ -53,3 +53,20 @@ img {
     padding-right: 22px;
   }
 }
+
+/* Celular pequeno — padding mínimo para não sufocar o conteúdo */
+@media (max-width: 480px) {
+  .wrap {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Garante que nenhum elemento quebre o viewport */
+  * {
+    max-width: 100%;
+  }
+  select,
+  input {
+    max-width: 100%;
+  }
+}

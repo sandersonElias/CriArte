@@ -73,7 +73,7 @@ function PublicSite() {
   useScrollReveal();
 
   const { settings } = useSettingsViewModel();
-  const { toast, show: showToast } = useToast();
+  const { toast } = useToast();
 
   return (
     <>
@@ -126,7 +126,6 @@ export default function App() {
       {isAdminRoute() ? (
         <AdminGuard />
       ) : (
-        // CartProvider envolve só o site público
         <CartProvider>
           <PublicSite />
         </CartProvider>

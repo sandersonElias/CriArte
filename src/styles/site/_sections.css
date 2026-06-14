@@ -476,3 +476,134 @@
     grid-template-columns: 1fr !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVO — substituir o bloco anterior no arquivo final
+   ══════════════════════════════════════════════════════════
+
+   Copie apenas os blocos @media abaixo e SUBSTITUA o bloco
+   "@media (max-width: 980px)" existente no seu _sections.css.
+
+/* ── Responsivo ≤ 980px ───────────────────────────────── */
+@media (max-width: 980px) {
+  /* Custom */
+  .custom-card,
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+  .custom-card__body {
+    padding: 40px 28px;
+  }
+  .custom-card__img {
+    min-height: 260px;
+  }
+
+  /* Budget — empilha os dois painéis */
+  .budget-section {
+    padding: 60px 0;
+  }
+  .budget-card {
+    grid-template-columns: 1fr;
+    border-radius: 18px;
+  }
+  .budget-card__body {
+    padding: 32px 24px;
+  }
+  .budget-card__side {
+    padding: 32px 24px;
+    border-radius: 0 0 18px 18px;
+  }
+
+  /* Budget formulário — todas as linhas viram 1 coluna */
+  .b-row,
+  .b-row--3 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Budget estimativa — font menor para não cortar na tela */
+  .budget-side__range {
+    font-size: clamp(28px, 8vw, 44px);
+  }
+  .budget-side__prazo-v {
+    font-size: 22px;
+  }
+
+  /* Instagram */
+  .ig-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* FAQ */
+  .faq-grid {
+    gap: 40px;
+  }
+  .faq-sidebar__title {
+    font-size: clamp(30px, 7vw, 44px);
+  }
+
+  /* Depoimentos — 1 card por slide, seção arredondada menor */
+  .test-slide {
+    grid-template-columns: 1fr !important;
+  }
+  .test-section {
+    border-radius: 16px;
+    padding: 48px 0;
+  }
+}
+
+/* ── Responsivo ≤ 640px (celular pequeno) ─────────────── */
+@media (max-width: 640px) {
+  /* Budget */
+  .budget-section {
+    padding: 40px 0;
+  }
+  .budget-card__body {
+    padding: 24px 20px;
+  }
+  .budget-card__side {
+    padding: 24px 20px;
+  }
+  .budget-card__title {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+  .budget-side__range {
+    font-size: clamp(24px, 7vw, 36px);
+  }
+  .b-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Custom */
+  .custom-card__body {
+    padding: 32px 20px;
+  }
+  .custom-card__title {
+    font-size: clamp(32px, 8vw, 48px);
+  }
+
+  /* Depoimentos */
+  .test-section {
+    border-radius: 12px;
+    padding: 36px 0;
+  }
+  .tcard {
+    padding: 20px;
+  }
+  .tcard__text {
+    font-size: 14.5px;
+  }
+
+  /* Instagram — 2 colunas no celular pequeno */
+  .ig-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* FAQ */
+  .faq-grid {
+    gap: 28px;
+  }
+  .faq-item__q {
+    font-size: 16px;
+  }
+}
