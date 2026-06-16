@@ -37,7 +37,7 @@ export const TopNav: FC = () => {
             {NAV_LINKS.map(({ id, label }) => (
               <li key={id}>
                 <a
-                  href={`#${id}`}
+                  href={`/#${id}`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleNavClick(id);

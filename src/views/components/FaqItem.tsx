@@ -1,8 +1,8 @@
 import type { FC } from 'react';
-import type { FaqItem as FaqItemModel } from '../../models/FaqItem';
+import type { FSFaqItem } from '../../models/FirestoreModels';
 
 interface Props {
-  item: FaqItemModel;
+  item: FSFaqItem;
   isOpen: boolean;
   onToggle: () => void;
 }

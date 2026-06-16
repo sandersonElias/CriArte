@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import { useSearchViewModel } from '../../viewmodels/useSearchViewModel';
 import { useCartContext } from '../../contexts/CartContext';
+import { useRouterContext } from '../../contexts/RouterContext';
 import { ImageSlot } from './ImageSlot';
 import type { Product } from '../../models/Product';
 
@@ -19,7 +20,6 @@ const IconSearch = () => (
     <path d="m20 20-3-3" />
   </svg>
 );
-
 const IconX = () => (
   <svg
     viewBox="0 0 24 24"
@@ -33,7 +33,6 @@ const IconX = () => (
     <path d="M18 6 6 18M6 6l12 12" />
   </svg>
 );
-
 const IconBag = () => (
   <svg
     viewBox="0 0 24 24"
@@ -49,8 +48,21 @@ const IconBag = () => (
     <path d="M16 10a4 4 0 0 1-8 0" />
   </svg>
 );
+const IconArrow = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    width={14}
+    height={14}
+    aria-hidden="true"
+  >
+    <path d="m9 18 6-6-6-6" />
+  </svg>
+);
 
-// ─── Realça o trecho que coincide com a query ─────────────────────────────────
+// ─── Realça texto encontrado ──────────────────────────────────────────────────
 function Highlight({ text, query }: { text: string; query: string }) {
   if (!query.trim()) return <>{text}</>;
   const regex = new RegExp(
@@ -73,7 +85,7 @@ function Highlight({ text, query }: { text: string; query: string }) {
   );
 }
 
-// ─── Componente principal ─────────────────────────────────────────────────────
+// ─── Props ────────────────────────────────────────────────────────────────────
 interface Props {
   open: boolean;
   onClose: () => void;
@@ -86,6 +98,7 @@ interface Props {
   handleQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+// ─── Componente principal ─────────────────────────────────────────────────────
 export const SearchModal: FC<Props> = ({
   open,
   onClose,
@@ -98,10 +111,17 @@ export const SearchModal: FC<Props> = ({
   handleQuery,
 }) => {
   const { handleAddToCart } = useCartContext();
+  const { goProduct } = useRouterContext();
 
-  const handleAddAndClose = (product: Product) => {
-    handleAddToCart(product);
+  // Navega para a página do produto e fecha o modal
+  const handleGoProduct = (product: Product) => {
     onClose();
+    goProduct(product.id);
+  };
+
+  // Adiciona ao carrinho sem fechar o modal
+  const handleAdd = (product: Product) => {
+    handleAddToCart(product);
   };
 
   if (!open) return null;
@@ -115,7 +135,7 @@ export const SearchModal: FC<Props> = ({
       aria-label="Buscar produtos"
     >
       <div className="search-modal">
-        {/* Campo de busca */}
+        {/* Input ─────────────────────────────────────────────────────────────── */}
         <div className="search-input-wrap">
           <span className="search-input-icon">
             <IconSearch />
@@ -153,9 +173,9 @@ export const SearchModal: FC<Props> = ({
           </button>
         </div>
 
-        {/* Resultados */}
+        {/* Corpo ──────────────────────────────────────────────────────────────── */}
         <div className="search-body">
-          {/* Estado inicial — dicas */}
+          {/* Dicas iniciais */}
           {!showResults && (
             <div className="search-tips">
               <p className="search-tips__title">Sugestões de busca</p>
@@ -213,8 +233,12 @@ export const SearchModal: FC<Props> = ({
                   <ul className="search-results">
                     {group.products.map((product) => (
                       <li key={product.id} className="search-result">
-                        {/* Imagem */}
-                        <div className="search-result__img">
+                        {/* Imagem — clica e vai para a página */}
+                        <div
+                          className="search-result__img"
+                          onClick={() => handleGoProduct(product)}
+                          style={{ cursor: 'pointer' }}
+                        >
                           <ImageSlot
                             imageUrl={product.imageUrl}
                             placeholder={product.placeholder}
@@ -222,8 +246,12 @@ export const SearchModal: FC<Props> = ({
                           />
                         </div>
 
-                        {/* Info */}
-                        <div className="search-result__info">
+                        {/* Info — clica e vai para a página */}
+                        <div
+                          className="search-result__info"
+                          onClick={() => handleGoProduct(product)}
+                          style={{ cursor: 'pointer' }}
+                        >
                           <div className="search-result__name">
                             <Highlight text={product.name} query={query} />
                           </div>
@@ -251,15 +279,26 @@ export const SearchModal: FC<Props> = ({
                           </div>
                         </div>
 
-                        {/* Ação */}
-                        <button
-                          className="search-result__add"
-                          onClick={() => handleAddAndClose(product)}
-                          aria-label={`Adicionar ${product.name} ao carrinho`}
-                        >
-                          <IconBag />
-                          <span>Adicionar</span>
-                        </button>
+                        {/* Ações: ver página + adicionar ao carrinho */}
+                        <div className="search-result__btns">
+                          <button
+                            className="search-result__view"
+                            onClick={() => handleGoProduct(product)}
+                            aria-label={`Ver ${product.name}`}
+                            title="Ver produto"
+                          >
+                            <IconArrow />
+                          </button>
+                          <button
+                            className="search-result__add"
+                            onClick={() => handleAdd(product)}
+                            aria-label={`Adicionar ${product.name} ao carrinho`}
+                            title="Adicionar ao carrinho"
+                          >
+                            <IconBag />
+                            <span>Adicionar</span>
+                          </button>
+                        </div>
                       </li>
                     ))}
                   </ul>

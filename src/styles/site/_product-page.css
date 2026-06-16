@@ -1,0 +1,376 @@
+/* ── Breadcrumb ───────────────────────────────────────── */
+.prod-page {
+  padding-bottom: 96px;
+}
+
+.prod-page__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 0 32px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.prod-page__bc-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: var(--mute);
+  transition: color 0.15s;
+}
+.prod-page__bc-link:hover {
+  color: var(--green-800);
+}
+.prod-page__bc-sep {
+  opacity: 0.4;
+}
+.prod-page__bc-current {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ── Grid principal ───────────────────────────────────── */
+.prod-page__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* ── Galeria / imagem ─────────────────────────────────── */
+.prod-page__gallery {
+  position: sticky;
+  top: 88px;
+}
+
+.prod-page__img-main {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--cream);
+}
+.prod-page__img-main .image-slot,
+.prod-page__img-main .image-real {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.prod-page__img-main .tag {
+  top: 18px;
+  left: 18px;
+  font-size: 11px;
+  padding: 6px 12px;
+}
+
+/* ── Info ─────────────────────────────────────────────── */
+.prod-page__info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 8px;
+}
+
+.prod-page__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.prod-page__meta-dot {
+  opacity: 0.4;
+}
+
+.prod-page__name {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+/* Preço */
+.prod-page__price-block {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.prod-page__price {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 600;
+  color: var(--green-800);
+}
+.prod-page__price-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--mute);
+}
+
+/* ── Botões de ação ───────────────────────────────────── */
+.prod-page__actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.prod-page__add {
+  flex: 1;
+  justify-content: center;
+  padding: 15px 24px;
+  font-size: 15px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.prod-page__add--in-cart {
+  background: var(--green-600);
+}
+.prod-page__add--in-cart:hover {
+  background: var(--green-700);
+}
+
+.prod-page__fav {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    color 0.15s;
+}
+.prod-page__fav:hover {
+  border-color: #e44;
+  background: #fff5f5;
+}
+.prod-page__fav--active {
+  border-color: #e44;
+  color: #e44;
+  background: #fff5f5;
+}
+
+/* ── Encomendar WA ────────────────────────────────────── */
+.prod-page__wa {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: var(--green-900);
+  color: var(--cream);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+.prod-page__wa:hover {
+  background: #0e2010;
+}
+
+/* ── Detalhes ─────────────────────────────────────────── */
+.prod-page__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bone);
+}
+.prod-page__detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.prod-page__detail:last-child {
+  border-bottom: none;
+}
+.prod-page__detail-ico {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.prod-page__detail-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin-bottom: 3px;
+}
+.prod-page__detail-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ── Produtos relacionados ────────────────────────────── */
+.prod-page__related {
+  margin-top: 96px;
+}
+
+/* ── Voltar ───────────────────────────────────────────── */
+.prod-page__back {
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+.prod-page__back-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font:
+    500 14px 'DM Sans',
+    sans-serif;
+  color: var(--mute);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+.prod-page__back-btn:hover {
+  color: var(--green-800);
+}
+
+/* ── Loading skeleton ─────────────────────────────────── */
+.prod-page__loading {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  padding: 40px 0 96px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.prod-page__skeleton-img {
+  aspect-ratio: 4/5;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #e8e0cc 25%, #f0e9d5 50%, #e8e0cc 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+.prod-page__skeleton-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 40px;
+}
+.skel {
+  border-radius: 8px;
+  background: linear-gradient(90deg, #e8e0cc 25%, #f0e9d5 50%, #e8e0cc 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+.skel--title {
+  height: 52px;
+  width: 70%;
+}
+.skel--line {
+  height: 18px;
+}
+.skel--short {
+  width: 50%;
+}
+.skel--price {
+  height: 44px;
+  width: 40%;
+  margin-top: 8px;
+}
+.skel--btn {
+  height: 52px;
+  border-radius: 14px;
+  margin-top: 8px;
+}
+
+/* ── Não encontrado ───────────────────────────────────── */
+.prod-page__not-found {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  padding: 60px 20px;
+}
+.prod-page__nf-inner {
+  text-align: center;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.prod-page__nf-icon {
+  font-size: 56px;
+}
+.prod-page__nf-inner h2 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+}
+.prod-page__nf-inner p {
+  color: var(--mute);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── Responsivo ───────────────────────────────────────── */
+@media (max-width: 860px) {
+  .prod-page__grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .prod-page__gallery {
+    position: static;
+  }
+  .prod-page__img-main {
+    aspect-ratio: 3/2;
+    border-radius: 16px;
+  }
+  .prod-page__loading {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .prod-page__breadcrumb {
+    padding: 16px 0 24px;
+  }
+  .prod-page__name {
+    font-size: 28px;
+  }
+  .prod-page__price {
+    font-size: 26px;
+  }
+  .prod-page__actions {
+    flex-wrap: wrap;
+  }
+  .prod-page__add {
+    width: 100%;
+  }
+  .prod-page__img-main {
+    aspect-ratio: 1;
+    border-radius: 12px;
+  }
+}

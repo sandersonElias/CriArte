@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback } from 'react';
-import type { BudgetForm } from '../models/Budget';
 import { calcBudget, buildBudgetWaMessage } from '../utils/budgetCalculator';
 import { waLink } from '../utils/whatsapp';
+import type { BudgetForm } from '../models/Bugget';
 
 const DEFAULT_FORM: BudgetForm = {
   tipo: 'mobiliario',

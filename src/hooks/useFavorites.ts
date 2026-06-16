@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import type { Product } from '../models/Product';
 
-const FAV_KEY = 'cri.favs.v2'; // v2 guarda o objeto completo, não só o id
+const FAV_KEY = 'cri.favs.v2';
 
 function loadFavs(): Product[] {
   try {

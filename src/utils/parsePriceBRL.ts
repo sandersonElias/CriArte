@@ -1,5 +1,4 @@
 export function parsePriceBRL(price: string): number {
-  // Remove "R$", espaços e pontos de milhar; troca vírgula decimal por ponto
   const clean = price
     .replace(/R\$\s*/g, '')
     .replace(/\./g, '')

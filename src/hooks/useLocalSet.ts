@@ -9,11 +9,6 @@ export function useLocalSet(key: string) {
     }
   });
 
-  const persist = (next: string[]) => {
-    localStorage.setItem(key, JSON.stringify(next));
-    setItems(next);
-  };
-
   const toggle = useCallback(
     (id: string) => {
       setItems((prev) => {

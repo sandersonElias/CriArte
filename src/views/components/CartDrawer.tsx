@@ -7,7 +7,6 @@ export const CartDrawer: FC = () => {
 
   const handleWhatsApp = () => {
     const msg = cart.buildWhatsAppMessage();
-    // waNumber vem do Firestore via settings — aqui usamos variável de ambiente como fallback
     const number = import.meta.env.VITE_WA_NUMBER ?? '5511999990000';
     window.open(
       `https://wa.me/${number}?text=${encodeURIComponent(msg)}`,

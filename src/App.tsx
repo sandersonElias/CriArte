@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 import { AuthProvider } from './contexts/AuthContext';
 import { useAuth } from './contexts/AuthContext';
-
+import { CartProvider } from './contexts/CartContext';
+import { RouterProvider, useRouterContext } from './contexts/RouterContext';
 import { useSettingsViewModel } from './viewmodels/useSettingsViewModel';
 
 // ─── Estilos ──────────────────────────────────────────────────────────────────
 import './styles/site/index.css';
 import './styles/admin/index.css';
 
-// ─── Hooks de infra ───────────────────────────────────────────────────────────
+// ─── Hooks ───────────────────────────────────────────────────────────────────
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { useToast } from './hooks/useToast';
 
@@ -19,6 +20,8 @@ import { Toast } from './views/components/Toast';
 import { WhatsAppFloat } from './views/components/WhatsAppFloat';
 import { CartDrawer } from './views/components/CartDrawer';
 import { FavoritesDrawer } from './views/components/FavoritesDrawer';
+
+// ─── Seções da home ───────────────────────────────────────────────────────────
 import { HeroSection } from './views/sections/HeroSection';
 import { TrustStrip } from './views/sections/TrustStrip';
 import { CategoriesSection } from './views/sections/CategoriesSection';
@@ -29,19 +32,17 @@ import { TestimonialsSection } from './views/sections/TestimonialsSection';
 import { IgSection } from './views/sections/IgSection';
 import { FaqSection } from './views/sections/FaqSection';
 import { Footer } from './views/sections/Footer';
-import { CartProvider } from './contexts/CartContext';
+
+// ─── Páginas ──────────────────────────────────────────────────────────────────
+import { ProductPage } from './views/pages/ProductPage';
 
 // ─── Admin ────────────────────────────────────────────────────────────────────
 import { LoginPage } from './views/admin/LoginPage';
 import { AdminPage } from './views/admin/AdminPage';
 
-// ─── Detecta rota /admin ──────────────────────────────────────────────────────
-const isAdminRoute = () => window.location.pathname.startsWith('/admin');
-
-// ─── Proteção de rota ─────────────────────────────────────────────────────────
+// ─── Proteção de rota admin ───────────────────────────────────────────────────
 function AdminGuard() {
   const { user, loading } = useAuth();
-
   if (loading) {
     return (
       <div
@@ -64,49 +65,60 @@ function AdminGuard() {
       </div>
     );
   }
-
   return user ? <AdminPage /> : <LoginPage />;
 }
 
-// ─── Site público ─────────────────────────────────────────────────────────────
-function PublicSite() {
-  useScrollReveal();
-
+// ─── Shell do site público (layout compartilhado entre rotas) ─────────────────
+function PublicShell({ children }: { children: React.ReactNode }) {
   const { settings } = useSettingsViewModel();
   const { toast } = useToast();
+
+  useScrollReveal();
 
   return (
     <>
       <AnnouncerBar settings={settings} />
       <TopNav />
-
-      <main id="top">
-        <div className="wrap">
-          <HeroSection settings={settings} />
-        </div>
-
-        <TrustStrip />
-
-        <div className="wrap">
-          <CategoriesSection />
-          <ProductsSection />
-          <CustomSection />
-          <BudgetSection />
-          <TestimonialsSection />
-          <IgSection />
-          <FaqSection />
-        </div>
-      </main>
-
+      <main id="top">{children}</main>
       <Footer settings={settings} />
       <WhatsAppFloat settings={settings} />
-
-      {/* Drawers — ficam fora do fluxo, sempre montados */}
       <CartDrawer />
       <FavoritesDrawer />
-
       <Toast text={toast.text} visible={toast.visible} />
     </>
+  );
+}
+
+// ─── Roteador do site público ─────────────────────────────────────────────────
+function PublicRouter() {
+  const { route } = useRouterContext();
+  const { settings } = useSettingsViewModel();
+
+  if (route.name === 'product') {
+    return (
+      <PublicShell>
+        <ProductPage productId={route.id} settings={settings} />
+      </PublicShell>
+    );
+  }
+
+  // Home — rota padrão
+  return (
+    <PublicShell>
+      <div className="wrap">
+        <HeroSection settings={settings} />
+      </div>
+      <TrustStrip />
+      <div className="wrap">
+        <CategoriesSection />
+        <ProductsSection />
+        <CustomSection />
+        <BudgetSection />
+        <TestimonialsSection />
+        <IgSection />
+        <FaqSection />
+      </div>
+    </PublicShell>
   );
 }
 
@@ -123,13 +135,16 @@ export default function App() {
 
   return (
     <AuthProvider>
-      {isAdminRoute() ? (
-        <AdminGuard />
-      ) : (
-        <CartProvider>
-          <PublicSite />
-        </CartProvider>
-      )}
+      <RouterProvider>
+        {/* Admin não precisa de CartProvider nem RouterProvider interno */}
+        {window.location.pathname.startsWith('/admin') ? (
+          <AdminGuard />
+        ) : (
+          <CartProvider>
+            <PublicRouter />
+          </CartProvider>
+        )}
+      </RouterProvider>
     </AuthProvider>
   );
 }

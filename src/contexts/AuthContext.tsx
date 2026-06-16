@@ -1,10 +1,3 @@
-/**
- * contexts/AuthContext.tsx
- *
- * Disponibiliza o usuário autenticado para toda a árvore React.
- * Use o hook useAuth() em qualquer componente.
- */
-
 import {
   createContext,
   useContext,

@@ -1,8 +1,3 @@
-/**
- * views/admin/ImageUploader.tsx
- * Campo de upload via Cloudinary com preview, barra de progresso e remoção.
- */
-
 import { useRef, type FC } from 'react';
 import { useImageUpload } from '../../hooks/useImageUpload';
 

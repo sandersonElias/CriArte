@@ -1,11 +1,3 @@
-/**
- * services/firestoreService.ts
- *
- * Camada de acesso ao Firestore.
- * Todas as operações de leitura e escrita do projeto passam por aqui.
- * Nenhum componente ou ViewModel importa o firebase/firestore diretamente.
- */
-
 import {
   collection,
   doc,

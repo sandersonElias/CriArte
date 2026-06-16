@@ -1,29 +1,3 @@
-/**
- * services/cloudinaryService.ts
- *
- * Upload de imagens via Cloudinary (plano gratuito — 25 GB).
- * Usa o endpoint de upload não autenticado com "unsigned preset".
- *
- * CONFIGURAÇÃO (faça uma vez no cloudinary.com):
- * 1. Crie uma conta gratuita em cloudinary.com
- * 2. No dashboard: Settings → Upload → Upload presets → Add upload preset
- *    - Signing Mode: "Unsigned"
- *    - Folder: "cri-artes/products"
- *    - Allowed formats: jpg, png, webp, svg
- *    - Max file size: 5 MB
- *    - Salve e copie o "Preset name"
- * 3. Copie seu "Cloud name" do dashboard principal
- * 4. Adicione ao .env:
- *    VITE_CLOUDINARY_CLOUD_NAME=seu_cloud_name
- *    VITE_CLOUDINARY_UPLOAD_PRESET=seu_preset_name
- *
- * Por que unsigned preset é seguro aqui?
- * - O preset limita pasta, formato e tamanho máximo
- * - Qualquer upload vai para a pasta "cri-artes/products" — não há acesso
- *   a outras pastas da conta
- * - Em produção, você pode adicionar moderação automática no preset
- */
-
 export type UploadProgress = {
   percent: number; // 0–100
   state: 'running' | 'error' | 'success';

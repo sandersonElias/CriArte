@@ -4,7 +4,7 @@ import type { FSTestimonial } from '../models/FirestoreModels';
 import type { Testimonial } from '../models/Testimonial';
 import { useSlider } from '../hooks/useSlider';
 
-const CHUNK = 3; // depoimentos por slide
+const CHUNK = 3;
 
 function chunkArray<T>(arr: T[], size: number): T[][] {
   const result: T[][] = [];

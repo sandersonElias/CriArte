@@ -5,7 +5,6 @@ import type { Product, ProductCategory } from '../models/Product';
 
 export type FilterKey = 'all' | ProductCategory;
 
-/** Converte FSProduct (Firestore) → Product (interface da View) */
 function toProduct(p: FSProduct): Product {
   return {
     id: p.id,

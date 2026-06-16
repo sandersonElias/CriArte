@@ -2,8 +2,7 @@ import type { FC } from 'react';
 import { useCartContext } from '../../contexts/CartContext';
 
 export const FavoritesDrawer: FC = () => {
-  const { favorites, moveToCart, closeDrawer, openFavorites, activeDrawer } =
-    useCartContext();
+  const { favorites, moveToCart, closeDrawer, activeDrawer } = useCartContext();
 
   const open = activeDrawer === 'favorites';
 

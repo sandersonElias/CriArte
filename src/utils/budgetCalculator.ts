@@ -1,4 +1,4 @@
-import type { BudgetForm, BudgetResult } from '../models/Budget';
+import type { BudgetForm, BudgetResult } from '../models/Bugget';
 
 const TIPO: Record<string, number> = {
   mobiliario: 1.0,

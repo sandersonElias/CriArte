@@ -1,10 +1,3 @@
-/**
- * viewmodels/useSettingsViewModel.ts
- *
- * Lê as configurações globais (settings/global) do Firestore em tempo real.
- * Usado pelo site público para: AnnouncerBar, HeroSection, Footer, WhatsAppFloat.
- */
-
 import { useState, useEffect } from 'react';
 import { subscribeDocument } from '../services/firestoreService';
 import type { FSSettings } from '../models/FirestoreModels';
