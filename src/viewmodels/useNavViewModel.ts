@@ -1,3 +1,4 @@
+import { useRouterContext } from '../contexts/RouterContext';
 import { scrollToId } from '../utils/whatsapp';
 import { waLink } from '../utils/whatsapp';
 
@@ -15,8 +16,25 @@ export const NAV_LINKS: NavLink[] = [
 ];
 
 export function useNavViewModel() {
-  const handleNavClick = (id: string) => scrollToId(id);
-  const handleLogoClick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const { route, goHome } = useRouterContext();
+
+  const handleNavClick = (id: string) => {
+    if (route.name !== 'home') {
+      goHome();
+      setTimeout(() => scrollToId(id), 300);
+    } else {
+      scrollToId(id);
+    }
+  };
+
+  const handleLogoClick = () => {
+    if (route.name !== 'home') {
+      goHome();
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const orderWaLink = waLink(
     'Olá! Vim pela Vitrine da CRI Artes e quero encomendar uma peça.',
   );

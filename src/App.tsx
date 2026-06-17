@@ -70,14 +70,14 @@ function AdminGuard() {
 
 // ─── Shell do site público (layout compartilhado entre rotas) ─────────────────
 function PublicShell({ children }: { children: React.ReactNode }) {
-  const { settings } = useSettingsViewModel();
+  const { settings, loading } = useSettingsViewModel();
   const { toast } = useToast();
 
   useScrollReveal();
 
   return (
     <>
-      <AnnouncerBar settings={settings} />
+      <AnnouncerBar settings={settings} loading={loading} />
       <TopNav />
       <main id="top">{children}</main>
       <Footer settings={settings} />

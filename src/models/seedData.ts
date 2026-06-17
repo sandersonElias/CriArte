@@ -1,3 +1,16 @@
+/**
+ * models/seedData.ts
+ *
+ * Dados ESTÁTICOS do site — não vêm do Firestore.
+ *
+ * O que foi removido daqui e por quê:
+ *   PRODUCTS     → Firestore (coleção "products")     — gerenciado no admin
+ *   TESTIMONIALS → Firestore (coleção "testimonials") — gerenciado no admin
+ *   FAQ_ITEMS    → Firestore (coleção "faq")          — gerenciado no admin
+ *   CATEGORIES   → Firestore (coleção "categories")   — gerenciado no admin
+ *   FILTERS      → derivado dos produtos em tempo real (useProductsViewModel)
+ */
+
 // ─── Trust strip — fixo no layout, não varia por cliente ─────────────────────
 export const TRUST_ITEMS = [
   { ico: '✦', t: 'Feito à mão', d: 'No ateliê de Mairiporã, SP' },

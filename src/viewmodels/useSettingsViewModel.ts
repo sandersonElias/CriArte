@@ -6,7 +6,7 @@ const DEFAULTS: FSSettings = {
   id: 'global',
   announceText:
     'Frete monitorado para todo o Brasil · 10× sem juros · <strong>Ateliê aberto às quartas</strong>',
-  announceActive: true,
+  announceActive: false,
   waNumber: '5511999990000',
   heroChip: 'Coleção inverno · disponível agora',
   heroTitle: 'Peças em madeira que duram gerações.',

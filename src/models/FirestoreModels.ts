@@ -10,8 +10,8 @@ export interface FSProduct extends FirestoreRecord {
   priceNote: string;
   tag?: string;
   tagVariant?: 'green' | 'yellow';
-  imageUrl?: string; // URL pública do Cloudinary
-  imagePublicId?: string; // ID do Cloudinary (para transformações)
+  imageUrl?: string;
+  imagePublicId?: string;
   active: boolean;
   order: number;
 }
